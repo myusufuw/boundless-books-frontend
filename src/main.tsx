@@ -1,11 +1,11 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import "./index.css"
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import "./index.css"
 import MainLayout from "./layout/main-layout.tsx"
-import Home from "./pages/home/home.tsx"
-import loader from "./pages/home/loader.tsx"
+import Author from "./routes/author.tsx"
+import ProductDetail from "./routes/product-detail.tsx"
+import { Product, loader as ProductLoader } from "./routes/product.tsx"
 
 const router = createBrowserRouter([
   {
@@ -13,8 +13,16 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
-        loader: loader,
+        element: <Product />,
+        loader: ProductLoader,
+      },
+      {
+        path: "/product/:slug",
+        element: <ProductDetail />,
+      },
+      {
+        path: "/author/:slug",
+        element: <Author />,
       },
     ],
   },
