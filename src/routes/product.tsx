@@ -44,7 +44,7 @@ export const Product = () => {
       </Slider>
 
       {/* PRODUCT LIST */}
-      <div className="grid gap-4 mt-6 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
+      <div className="grid gap-4 mt-8 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
         {data.map((item, index) => (
           <ProductCard product={item} key={index} />
         ))}

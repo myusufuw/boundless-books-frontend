@@ -9,10 +9,9 @@
     }
   ],
   "compilerOptions": {
-    /* Absolute Import */
     "baseUrl": ".",
     "paths": {
-      "src/*": ["./src/*"]
+      "@/*": ["./src/*"]
     }
   }
 }
