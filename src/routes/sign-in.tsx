@@ -34,21 +34,21 @@ export const action = async ({ request }: ActionFunctionArgs) => {
       },
     }
   )
+
   const signInResponse: SignInResponse = await response.json()
 
-  toast(signInResponse.message)
-
-  if (!signInResponse) {
+  if (response.status !== 200) {
+    toast.error(signInResponse.message)
     return null
+  } else {
+    toast.success(signInResponse.message)
+
+    const token = signInResponse.token
+
+    cookies.set("token", token)
+
+    return redirect("/")
   }
-
-  const token = signInResponse.token
-
-  cookies.set("token", token)
-
-  redirect("/")
-
-  return null
 }
 
 const schema = z
@@ -83,11 +83,14 @@ const SignIn = () => {
       method="post"
       className="w-full bg-white px-4 py-8 lg:p-0 max-w-[400px] lg:max-w-full shadow-lg lg:shadow-none rounded-md"
     >
-      <p className="text-4xl text-black mb-1 text-center font-bold">
+      <p className="text-4xl text-black mb-4 text-center font-bold">
         Wellcome back!
       </p>
-      <p className="text-gray-600 mb-[64px] text-center font-medium">
+      <p className="text-gray-600 mb-1 text-center font-medium">
         Enter your credential to sign in.
+      </p>
+      <p className="text-gray-600 mb-[48px] text-center font-medium text-sm">
+        We're glad to see you again!
       </p>
 
       <div className="mb-5">
@@ -134,13 +137,13 @@ const SignIn = () => {
 
       <button
         type="submit"
-        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
         Submit
       </button>
 
       <div className="mt-4 text-sm flex flex-row gap-1">
-        <p>Dont have an account?</p>
+        <p>Don't have an account?</p>
         <Link className=" hover:underline text-blue-500" to="/sign-up">
           Sign Up
         </Link>

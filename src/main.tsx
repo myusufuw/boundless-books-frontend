@@ -9,8 +9,8 @@ import MainLayout from "./layout/main-layout.tsx"
 import Author from "./routes/author.tsx"
 import ProductDetail from "./routes/product-detail.tsx"
 import { Product, loader as ProductLoader } from "./routes/product.tsx"
-import SignIn, { action } from "./routes/sign-in.tsx"
-import SignUp from "./routes/sign-up.tsx"
+import SignIn, { action as signInAction } from "./routes/sign-in.tsx"
+import SignUp, { action as signUpAction } from "./routes/sign-up.tsx"
 
 const router = createBrowserRouter([
   {
@@ -37,11 +37,12 @@ const router = createBrowserRouter([
       {
         path: "/sign-in",
         element: <SignIn />,
-        action: action,
+        action: signInAction,
       },
       {
         path: "/sign-up",
         element: <SignUp />,
+        action: signUpAction,
       },
     ],
   },
