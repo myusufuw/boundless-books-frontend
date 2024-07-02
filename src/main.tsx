@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Slide, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import Error from "./components/error.tsx"
 import "./index.css"
 import AuthenticationLayout from "./layout/authentication-layout.tsx"
 import MainLayout from "./layout/main-layout.tsx"
@@ -15,6 +16,7 @@ import SignUp, { action as signUpAction } from "./routes/sign-up.tsx"
 const router = createBrowserRouter([
   {
     element: <MainLayout />,
+    errorElement: <Error />,
     children: [
       {
         path: "/",
