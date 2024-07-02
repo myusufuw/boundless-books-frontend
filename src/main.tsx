@@ -54,7 +54,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
     <ToastContainer
-      position="top-right"
+      position="bottom-right"
       autoClose={2000}
       hideProgressBar={false}
       newestOnTop={false}
