@@ -5,10 +5,10 @@ const ProductCard = ({ product }: { product: Product }) => {
   const navigate = useNavigate()
   return (
     <Link
-      className="shadow-md border border-slate-200 p-4"
+      className="shadow-md border border-slate-200 p-3 flex flex-col"
       to={`/product/${product.slug}`}
     >
-      <img src={product.imageUrl} className="h-[200px] object-contain border" />
+      <img src={product.imageUrl} className="h-[200px] object-cover border" />
       <p
         onClick={() => navigate(`/author/${product.author.name}`)}
         className="mt-3 text-xs text-slate-600 hover:underline"
