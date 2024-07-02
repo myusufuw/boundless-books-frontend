@@ -84,7 +84,7 @@ const SignIn = () => {
       className="w-full bg-white px-4 py-8 lg:p-0 max-w-[400px] lg:max-w-full shadow-lg lg:shadow-none rounded-md"
     >
       <p className="text-4xl text-black mb-4 text-center font-bold">
-        Wellcome back!
+        Welcome back!
       </p>
       <p className="text-gray-600 mb-1 text-center font-medium">
         Enter your credential to sign in.
@@ -139,7 +139,7 @@ const SignIn = () => {
         type="submit"
         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-md text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
-        Submit
+        Sign In
       </button>
 
       <div className="mt-4 text-sm flex flex-row gap-1">
