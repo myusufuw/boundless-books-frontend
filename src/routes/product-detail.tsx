@@ -1,10 +1,11 @@
 import moment from "moment"
+import { useContext } from "react"
 import { FaCartPlus } from "react-icons/fa"
 import type { Params } from "react-router-dom"
 import { Link, useLoaderData } from "react-router-dom"
+import { MainContext } from "../context/main-context"
 import { productDetailList } from "../data/product-detail"
 import { Product as ProductType } from "../types/product"
-import { cookies } from "../utilities/auth"
 
 export const loader = async ({ params }: { params: Params<"slug"> }) => {
   const response = await fetch(
@@ -16,7 +17,8 @@ export const loader = async ({ params }: { params: Params<"slug"> }) => {
 
 const ProductDetail = () => {
   const data = useLoaderData() as Awaited<ReturnType<typeof loader>>
-  const auth = cookies.getAll()
+  const { auth } = useContext(MainContext)
+
   return (
     <div className="flex flex-col">
       {/* TOP SECTION */}
@@ -25,7 +27,7 @@ const ProductDetail = () => {
         <div className="flex flex-col p-4 border gap-3">
           <img
             src={data.imageUrl}
-            className="object-contain w-[200px] h-[300px] shadow-md"
+            className="w-[200px] h-[300px] shadow-md object-cover"
           />
 
           <button
@@ -46,11 +48,11 @@ const ProductDetail = () => {
           >
             {data.author.name}
           </Link>
-          <div className="mt-3 border w-[200px] p-3 border-slate-400 bg-slate-100 rounded-md">
+          <div className="mt-4 border w-[200px] p-3 border-slate-400 bg-slate-50 shadow-sm rounded-md">
             <p className="text-lg font-semibold">Rp. {data.price}</p>
           </div>
 
-          <div className="grid grid-cols-2 w-[500px] mt-3">
+          <div className="grid grid-cols-2 w-[500px] mt-4">
             {productDetailList(
               data.numberOfPages,
               data.publisher.name,

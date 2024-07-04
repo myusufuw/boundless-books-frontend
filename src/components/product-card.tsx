@@ -5,7 +5,7 @@ const ProductCard = ({ product }: { product: Product }) => {
   const navigate = useNavigate()
   return (
     <Link
-      className="shadow-md border border-slate-200 p-3 flex flex-col"
+      className="shadow-md border border-slate-200 p-3 flex flex-col min-w-[150px] max-w-[175px]"
       to={`/product/${product.slug}`}
     >
       <img src={product.imageUrl} className="h-[200px] object-cover border" />

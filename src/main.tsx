@@ -14,6 +14,7 @@ import ProductDetail, {
 import { Product, loader as productLoader } from "./routes/product.tsx"
 import SignIn, { action as signInAction } from "./routes/sign-in.tsx"
 import SignUp, { action as signUpAction } from "./routes/sign-up.tsx"
+import { MainContextProvider } from "./context/main-context.tsx"
 
 const router = createBrowserRouter([
   {
@@ -55,19 +56,21 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    <ToastContainer
-      position="bottom-right"
-      autoClose={2000}
-      hideProgressBar={false}
-      newestOnTop={false}
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable={false}
-      pauseOnHover
-      theme="light"
-      transition={Slide}
-    />
+    <MainContextProvider>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        theme="light"
+        transition={Slide}
+      />
+    </MainContextProvider>
   </React.StrictMode>
 )
