@@ -1,11 +1,13 @@
 import moment from "moment"
 import { useContext } from "react"
 import { FaCartPlus } from "react-icons/fa"
-import type { Params } from "react-router-dom"
-import { Link, useLoaderData } from "react-router-dom"
+import type { ActionFunctionArgs, Params } from "react-router-dom"
+import { Form, Link, redirect, useLoaderData } from "react-router-dom"
+import { toast } from "react-toastify"
 import { MainContext } from "../context/main-context"
 import { productDetailList } from "../data/product-detail"
 import { Product as ProductType } from "../types/product"
+import { cookies } from "../utilities/auth"
 
 export const loader = async ({ params }: { params: Params<"slug"> }) => {
   const response = await fetch(
@@ -15,28 +17,58 @@ export const loader = async ({ params }: { params: Params<"slug"> }) => {
   return product
 }
 
+export const action = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData()
+
+  const bodyParams = {
+    productId: formData.get("productId"),
+  }
+
+  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/orders`, {
+    method: "POST",
+    body: JSON.stringify(bodyParams),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${cookies.get("token")}`,
+    },
+  })
+
+  const addToCartResponse: { message: string } = await response.json()
+
+  if (response.status !== 200) {
+    toast.error(addToCartResponse.message)
+    return null
+  } else {
+    toast.success(addToCartResponse.message)
+    return redirect("/cart")
+  }
+}
+
 const ProductDetail = () => {
   const data = useLoaderData() as Awaited<ReturnType<typeof loader>>
   const { auth } = useContext(MainContext)
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col mx-4">
       {/* TOP SECTION */}
-      <div className="flex flex-row gap-6">
-        {/* IMAGE */}
+      <div className="flex flex-col md:flex-row gap-6">
         <div className="flex flex-col p-4 border gap-3">
           <img
             src={data.imageUrl}
-            className="w-[200px] h-[300px] shadow-md object-cover"
+            className="w-[200px] h-[300px] shadow-md object-cover self-center"
           />
 
-          <button
-            disabled={!auth.token}
-            className="p-2.5 border bg-blue-600 rounded-md text-white hover:bg-blue-800 flex flex-row items-center gap-4 justify-center disabled:bg-slate-500 disabled:cursor-not-allowed"
-          >
-            <FaCartPlus />
-            Add To Cart
-          </button>
+          <Form method="post" className="md:w-full w-[200px] self-center">
+            <input name="productId" className="hidden" defaultValue={data.id} />
+            <button
+              type="submit"
+              disabled={!auth.token}
+              className="w-full p-2.5 border bg-blue-600 rounded-md text-white hover:bg-blue-800 flex flex-row items-center gap-4 justify-center disabled:bg-slate-500 disabled:cursor-not-allowed"
+            >
+              <FaCartPlus />
+              Add To Cart
+            </button>
+          </Form>
         </div>
 
         {/* DETAILS */}
@@ -52,7 +84,7 @@ const ProductDetail = () => {
             <p className="text-lg font-semibold">Rp. {data.price}</p>
           </div>
 
-          <div className="grid grid-cols-2 w-[500px] mt-4">
+          <div className="grid grid-cols-2 md:w-[500px] mt-4">
             {productDetailList(
               data.numberOfPages,
               data.publisher.name,

@@ -11,7 +11,7 @@ type MainContextType = {
   auth: {
     token: string
   }
-  setAuth: Dispatch<SetStateAction<{ token: string }>>
+  setAuth: Dispatch<SetStateAction<{ token: string } | object>>
 }
 
 type Props = {

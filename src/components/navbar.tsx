@@ -1,14 +1,14 @@
+import { FaShoppingCart } from "react-icons/fa"
 import { Link } from "react-router-dom"
 import BoundlessBooksLogo from "../assets/boundless-books.svg"
-import { FaShoppingCart } from "react-icons/fa"
 
-import { cookies } from "../utilities/auth"
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { MainContext } from "../context/main-context"
+import { cookies } from "../utilities/auth"
 
 const Navbar = () => {
   const { auth, setAuth } = useContext(MainContext)
-  console.log(auth)
+
   const handleSignOut = () => {
     cookies.remove("token")
     setAuth({})
