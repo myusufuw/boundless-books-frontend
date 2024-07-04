@@ -33,7 +33,7 @@ export const Product = () => {
   }
 
   return (
-    <div className="mx-4">
+    <div>
       {/* BANNER */}
       <Slider {...sliderOptions}>
         {listBanner.map((banner, index) => (

@@ -14,7 +14,7 @@ const MainLayout = () => {
   }, [])
 
   return (
-    <div className="overflow-auto h-[100vh] flex flex-col relative">
+    <div className="overflow-auto h-[100vh] flex flex-col relative px-4">
       {/* APP BAR */}
       <Navbar />
 

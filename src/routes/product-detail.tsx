@@ -8,6 +8,7 @@ import { MainContext } from "../context/main-context"
 import { productDetailList } from "../data/product-detail"
 import { Product as ProductType } from "../types/product"
 import { cookies } from "../utilities/auth"
+import { formatCurrency } from "../utilities/number"
 
 export const loader = async ({ params }: { params: Params<"slug"> }) => {
   const response = await fetch(
@@ -49,7 +50,7 @@ const ProductDetail = () => {
   const { auth } = useContext(MainContext)
 
   return (
-    <div className="flex flex-col mx-4">
+    <div className="flex flex-col">
       {/* TOP SECTION */}
       <div className="flex flex-col md:flex-row gap-6">
         <div className="flex flex-col p-4 border gap-3">
@@ -81,7 +82,9 @@ const ProductDetail = () => {
             {data.author.name}
           </Link>
           <div className="mt-4 border w-[200px] p-3 border-slate-400 bg-slate-50 shadow-sm rounded-md">
-            <p className="text-lg font-semibold">Rp. {data.price}</p>
+            <p className="text-lg font-semibold">
+              Rp. {formatCurrency(data.price)}
+            </p>
           </div>
 
           <div className="grid grid-cols-2 md:w-[500px] mt-4">

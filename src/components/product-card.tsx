@@ -1,5 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { Product } from "../types/product"
+import { formatCurrency } from "../utilities/number"
 
 const ProductCard = ({ product }: { product: Product }) => {
   const navigate = useNavigate()
@@ -16,9 +17,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         {product.author.name}
       </p>
       <p className="mt-2 text-sm truncate">{product.title}</p>
-      <p className="font-medium">
-        Rp. {new Intl.NumberFormat("id-ID").format(product.price)}
-      </p>
+      <p className="font-medium">Rp. {formatCurrency(product.price)}</p>
     </Link>
   )
 }

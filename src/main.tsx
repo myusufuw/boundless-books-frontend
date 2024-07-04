@@ -9,7 +9,9 @@ import "./index.css"
 import AuthenticationLayout from "./layout/authentication-layout.tsx"
 import MainLayout from "./layout/main-layout.tsx"
 import Author from "./routes/author.tsx"
-import ProductCart from "./routes/product-cart.tsx"
+import ProductCart, {
+  loader as productCartLoader,
+} from "./routes/product-cart.tsx"
 import ProductDetail, {
   loader as productDetailLoader,
   action as productDetailAction,
@@ -41,6 +43,7 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <ProductCart />,
+        loader: productCartLoader,
       },
     ],
   },
