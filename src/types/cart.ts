@@ -1,3 +1,22 @@
+export interface Cart {
+  id: string
+  userId: string
+  status: string
+  createdAt: Date
+  updatedAt: Date
+  OrderItem: OrderItem[]
+}
+
+export interface OrderItem {
+  id: string
+  quantity: number
+  productId: string
+  orderId: string
+  createdAt: Date
+  updatedAt: Date
+  product: Product
+}
+
 export interface Product {
   id: string
   title: string
@@ -16,7 +35,6 @@ export interface Product {
   publisherId: string
   createdAt: Date
   updatedAt: Date
-  publisher: Publisher
   author: Author
 }
 
@@ -28,24 +46,4 @@ export interface Author {
   imageUrl: string
   createdAt: Date
   updatedAt: Date
-}
-
-export interface Publisher {
-  id: string
-  name: string
-  slug: string
-  address: string
-  createdAt: Date
-  updatedAt: Date
-}
-
-export interface AuthorDetail {
-  id: string
-  name: string
-  slug: string
-  about: string
-  imageUrl: string
-  createdAt: Date
-  updatedAt: Date
-  books: Product[]
 }

@@ -1,20 +1,21 @@
+import { FaShoppingCart } from "react-icons/fa"
 import { Link } from "react-router-dom"
 import BoundlessBooksLogo from "../assets/boundless-books.svg"
-import { FaShoppingCart } from "react-icons/fa"
 
+import { useContext } from "react"
+import { MainContext } from "../context/main-context"
 import { cookies } from "../utilities/auth"
-import { useState } from "react"
 
 const Navbar = () => {
-  const [auth, setAuth] = useState(cookies.getAll())
+  const { auth, setAuth } = useContext(MainContext)
 
   const handleSignOut = () => {
     cookies.remove("token")
-    setAuth(cookies.getAll())
+    setAuth({})
   }
 
   return (
-    <nav className=" bg-white h-[60px] py-4 px-3 shadow-md flex items-center fixed top-0 left-0 right-0 z-10">
+    <nav className=" bg-white h-[60px] p-4 shadow-md flex items-center fixed top-0 left-0 right-0 z-10">
       <div className=" container mx-auto flex flex-row justify-between">
         <Link to="/">
           <img src={BoundlessBooksLogo} alt="boundless books logo" />

@@ -11,9 +11,17 @@ import ProductCard from "../components/product-card"
 import { Product as ProductType } from "../types/product"
 
 export const loader = async () => {
-  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products`)
-  const product: ProductType[] = await response.json()
-  return product
+  try {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products`)
+
+    if (response.ok) {
+      const product: ProductType[] = await response.json()
+      return product
+    }
+  } catch (error) {
+    console.log(error)
+    return []
+  }
 }
 
 export const Product = () => {
@@ -32,8 +40,10 @@ export const Product = () => {
     cssEase: "linear",
   }
 
+  if (!data) return <p>Loading. . .</p>
+
   return (
-    <>
+    <div>
       {/* BANNER */}
       <Slider {...sliderOptions}>
         {listBanner.map((banner, index) => (
@@ -44,11 +54,11 @@ export const Product = () => {
       </Slider>
 
       {/* PRODUCT LIST */}
-      <div className="grid gap-4 mt-8 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
+      <div className="grid gap-4 mt-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
         {data.map((item, index) => (
           <ProductCard product={item} key={index} />
         ))}
       </div>
-    </>
+    </div>
   )
 }
