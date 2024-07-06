@@ -11,9 +11,17 @@ import ProductCard from "../components/product-card"
 import { Product as ProductType } from "../types/product"
 
 export const loader = async () => {
-  const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products`)
-  const product: ProductType[] = await response.json()
-  return product
+  try {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products`)
+
+    if (response.ok) {
+      const product: ProductType[] = await response.json()
+      return product
+    }
+  } catch (error) {
+    console.log(error)
+    return []
+  }
 }
 
 export const Product = () => {
@@ -31,6 +39,8 @@ export const Product = () => {
     autoplaySpeed: 4000,
     cssEase: "linear",
   }
+
+  if (!data) return <p>Loading. . .</p>
 
   return (
     <div>

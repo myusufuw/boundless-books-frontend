@@ -38,3 +38,14 @@ export interface Publisher {
   createdAt: Date
   updatedAt: Date
 }
+
+export interface AuthorDetail {
+  id: string
+  name: string
+  slug: string
+  about: string
+  imageUrl: string
+  createdAt: Date
+  updatedAt: Date
+  books: Product[]
+}

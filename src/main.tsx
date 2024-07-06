@@ -3,19 +3,19 @@ import ReactDOM from "react-dom/client"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Slide, ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
-import Error from "./components/error.tsx"
+// import Error from "./components/error.tsx"
 import { MainContextProvider } from "./context/main-context.tsx"
 import "./index.css"
 import AuthenticationLayout from "./layout/authentication-layout.tsx"
 import MainLayout from "./layout/main-layout.tsx"
-import Author from "./routes/author.tsx"
+import Author, { loader as authorLoader } from "./routes/author.tsx"
 import ProductCart, {
-  loader as productCartLoader,
   action as productCartAction,
+  loader as productCartLoader,
 } from "./routes/product-cart.tsx"
 import ProductDetail, {
-  loader as productDetailLoader,
   action as productDetailAction,
+  loader as productDetailLoader,
 } from "./routes/product-detail.tsx"
 import { Product, loader as productLoader } from "./routes/product.tsx"
 import SignIn, { action as signInAction } from "./routes/sign-in.tsx"
@@ -24,7 +24,7 @@ import SignUp, { action as signUpAction } from "./routes/sign-up.tsx"
 const router = createBrowserRouter([
   {
     element: <MainLayout />,
-    errorElement: <Error />,
+    // errorElement: <Error />,
     children: [
       {
         path: "/",
@@ -40,6 +40,7 @@ const router = createBrowserRouter([
       {
         path: "/author/:slug",
         element: <Author />,
+        loader: authorLoader,
       },
       {
         path: "/cart",
