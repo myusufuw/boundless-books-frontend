@@ -60,7 +60,12 @@ const ProductDetail = () => {
           />
 
           <Form method="post" className="md:w-full w-[200px] self-center">
-            <input name="productId" className="hidden" defaultValue={data.id} />
+            <input
+              name="productId"
+              className="hidden"
+              value={data.id}
+              readOnly
+            />
             <button
               type="submit"
               disabled={!auth.token}

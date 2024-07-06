@@ -11,6 +11,7 @@ import MainLayout from "./layout/main-layout.tsx"
 import Author from "./routes/author.tsx"
 import ProductCart, {
   loader as productCartLoader,
+  action as productCartAction,
 } from "./routes/product-cart.tsx"
 import ProductDetail, {
   loader as productDetailLoader,
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <ProductCart />,
         loader: productCartLoader,
+        action: productCartAction,
       },
     ],
   },
@@ -69,7 +71,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <MainContextProvider>
       <RouterProvider router={router} />
       <ToastContainer
-        position="bottom-right"
+        position="top-center"
         autoClose={2000}
         hideProgressBar={false}
         newestOnTop={false}
