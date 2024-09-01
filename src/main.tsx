@@ -17,7 +17,7 @@ import ProductDetail, {
   action as productDetailAction,
   loader as productDetailLoader,
 } from "./routes/product-detail.tsx"
-import { Product, loader as productLoader } from "./routes/product.tsx"
+import { Product } from "./routes/product.tsx"
 import SignIn, { action as signInAction } from "./routes/sign-in.tsx"
 import SignUp, { action as signUpAction } from "./routes/sign-up.tsx"
 
@@ -29,7 +29,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Product />,
-        loader: productLoader,
       },
       {
         path: "/product/:slug",
