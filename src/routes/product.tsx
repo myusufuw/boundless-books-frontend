@@ -1,32 +1,22 @@
-import { useLoaderData } from "react-router-dom"
 import Slider from "react-slick"
 import "slick-carousel/slick/slick-theme.css"
 import "slick-carousel/slick/slick.css"
+import useSWR from "swr"
 import Banner1 from "../assets/banner1.png"
 import Banner2 from "../assets/banner2.jpg"
 import Banner3 from "../assets/banner3.jpg"
 import Banner4 from "../assets/banner4.jpg"
 import Banner5 from "../assets/banner5.jpg"
+import Loading from "../components/loading"
 import ProductCard from "../components/product-card"
 import { Product as ProductType } from "../types/product"
-
-export const loader = async () => {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/products`)
-
-    if (response.ok) {
-      const product: ProductType[] = await response.json()
-      return product
-    }
-  } catch (error) {
-    console.log(error)
-    return []
-  }
-}
+import fetcher from "../utilities/fetcher"
 
 export const Product = () => {
-  const data = useLoaderData() as Awaited<ReturnType<typeof loader>>
-
+  const { data, error, isLoading } = useSWR<ProductType[]>(
+    `${import.meta.env.VITE_BACKEND_URL}/products`,
+    fetcher
+  )
   const listBanner = [Banner1, Banner2, Banner3, Banner4, Banner5]
 
   const sliderOptions = {
@@ -40,7 +30,8 @@ export const Product = () => {
     cssEase: "linear",
   }
 
-  if (!data) return <p>Loading. . .</p>
+  if (isLoading) return <Loading />
+  if (error) return <p className="font-bold">Failed to load books data :(</p>
 
   return (
     <div>
@@ -55,7 +46,7 @@ export const Product = () => {
 
       {/* PRODUCT LIST */}
       <div className="grid gap-4 mt-8 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-        {data.map((item, index) => (
+        {data?.map((item, index) => (
           <ProductCard product={item} key={index} />
         ))}
       </div>
